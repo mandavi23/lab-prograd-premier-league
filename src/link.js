@@ -1,338 +1,64 @@
-const managerDetails = document.querySelector(".grid-container").children;
-//checking trial 1
-try {
-  [...managerDetails].forEach(function(element, index) {
-    element.querySelector(".insidetext").textContent = manager[index];
-  });
-} catch (e) {
-  //Ignore error as we don't have the function yet
+var story = document.getElementById("story");
+var filler = document.createElement("p");
+var nextString = [
+    "Home Sweet Home",
+    "My name is Karen",
+    "Karen's new friend",
+    "Lily's investigation",
+    "Haunting discovery",
+    "Rising paranoia"
+];
+function updateProgression(i, p) {
+    filler.innerHTML = "Task: Complete Trial " + (i + 1) + "<br>Next: " + nextString[i];
+    if (story.lastElementChild == filler)
+        story.removeChild(filler);
+    story.innerHTML += p;
+    story.appendChild(filler);
 }
-
-//checking trial 2
-const defenders = document.querySelector(".defence");
-const midfielders = document.querySelector(".midfield");
-const forwards = document.querySelector(".forward");
-
-try {
-  for (let i = 0; i < formationObject.defender; i++) {
-    defenders.innerHTML += `<img src="./assets/player.svg" alt="" class="defenders"></img>`;
-  }
-  for (let i = 0; i < formationObject.midfield; i++) {
-    midfielders.innerHTML += `<img src="./assets/player.svg" alt="" class="defenders"></img>`;
-  }
-  for (let i = 0; i < formationObject.forward; i++) {
-    forwards.innerHTML += `<img src="./assets/player.svg" alt="" class="defenders"></img>`;
-  }
-} catch (e) {
-  //Ignore error as we don't have the function yet
-}
-
-//populate all players
-const playerContainer = document.getElementById("player-container");
-
-function createCards(players) {
-  playerContainer.innerHTML = "";
-  players.forEach(player => {
-    let awardsTpl = "";
-    player["awards"].forEach(element => {
-      awardsTpl += `<p class="minor-text">${element.name}</p>`;
-    });
-    let tpl =
-      `<div class="footballer-card">
-      <div class="photo"><img
-              src="${player.url}"
-          alt="photo" class="player-photo"></div>
-      <div class="major-details">
-          <div class="half">
-              <span>${player.name}</span>
-          </div>
-          <div class="second-half">
-              <p class="minor-title">TEAM</p>
-              <p class="smalltext">${player.team}</p>
-          </div>
-      </div>
-      <div class="minor-details">
-          <div class="minor-half">
-              <div class="minor-detail-container">
-                  <p class="minor-title">AGE</p>
-                  <p class="minor-text">${player.age}</p>
-              </div>
-              <div class="minor-detail-container">
-                  <p class="minor-title">NATIONALITY</p>
-                  <p class="minor-text">${player.country}</p>
-              </div>
-              <div class="minor-detail-container">
-                  <p class="minor-title">PPL DEBUT</p>
-                  <p class="minor-text">${player.debut}</p>
-              </div>
-              <div class="minor-detail-container">
-                  <p class="minor-title">POSITION</p>
-                  <p class="minor-text">${player.position}</p>
-              </div>
-          </div>
-          <div class="minor-second-half">
-              <p class="minor-title">AWARDS</p>` +
-      awardsTpl +
-      `</div> </div> </div>`;
-    playerContainer.innerHTML += tpl;
-  });
-}
-
-function resetselection() {
-  document.getElementById("awardflag").textContent = "";
-  document.getElementById("positionflag").textContent = "";
-  document.getElementById("debutflag").textContent = "";
-  document.getElementById("teamflag").textContent = "";
-  document.querySelectorAll(".award-selected").forEach(e => {
-    e.style.display = "none";
-  });
-  document.querySelectorAll(".team-selected").forEach(e => {
-    e.style.display = "none";
-  });
-  document
-    .getElementById("filter-type")
-    .querySelector(".subtitle.filtertype-active")
-    .classList.remove("filtertype-active");
-}
-
-//setup filter and sort menu
-document.querySelector(
-  ".filter-container"
-).firstElementChild.onclick = filtermenusetup;
-
-function filtermenusetup(evt) {
-  createCards([]);
-
-  try {
-    //deactivate the class filtertype-active for any selected buttons
-    resetselection();
-  } catch (e) {
-    //do nothing
-  }
-  this.classList.add("filtertype-active");
-  //display filtermenu
-  document.getElementById("filter-type").style.display = "inherit";
-}
-
-//populate filter elements
-//all player positions
-const positions = [...new Set(players.map(e => e.position))].sort();
-positions.forEach(
-  e =>
-    (document.querySelector("#dropdown-position").innerHTML +=
-      '<p class="position">' + e + "</p>")
-);
-
-//position clickhandler and listener
-
-let positionEls = document.querySelectorAll(".position");
-positionEls.forEach(element => {
-  element.onclick = positionHandler;
-});
-
-function positionHandler(evt) {
-  try {
-    createCards(filterByPosition(evt.target.innerHTML));
-    try {
-      //deactivate the class filtertype-active for any selected buttons
-      resetselection();
-    } catch (e) {
-      //do nothing
+updateProgression(0, "");
+if (moreAboutHome("Riverside Manor", 25, false) == "stringnumberboolean") {
+    let p2 = "<p>When they moved into that home, Karen was only 2 years old. When Kayva turned five, she had realized that she wanted more friends to play with. Once in a while they would go to their friend’s home in town. But for Karen, that was not enough.</p>";
+    updateProgression(1, p2);
+    if (moreAboutKaren("Lily & Harold", 0, true)) {
+        let p3 = "<p>One fine day, Karen told Lily that she had found someone to play with. Karen described what her friend talked and looked like. Lily thought it could be someone from a nearby village. But Lily was curious to know how such a young child travelled alone from a village.</p>";
+        updateProgression(2, p3);
+        if (doesFriendExist("six", 6) == "six") {
+            let p4 = "<p>Lily asked Karen to bring her friend home. But she told her that her friend refused to see anyone. Lily told Harold about this mysterious friend of Karen's. But he didn’t care much. Lily decided to take things in her own hand and figure out who this friend was.</p>";
+            updateProgression(3, p4);
+            if (sweetTooth(200, 50, 1, 100) == 25) {
+                let p5 = "<p>She prepared Karen's favourite sweet one day and asked her if she wanted to take it to her friend. Karen was delighted and said, \"I\'m sure she\'ll love it. Thank you so much, ma!\" Lily followed her closely without being noticed.</p>";
+                updateProgression(4, p5);
+                if (convertToCelsius(32) == 0) {
+                    let p6 = "<p>On reaching the river, she was stunned to see that Karen was talking to herself. Lily walked upto Karen and asked, \“Sweety, what are doing here all alone?\” Karen got upset and said, \"My friend ran away because of you!\" Lily was furious and dragged her back home.</p>";
+                    updateProgression(5, p6);
+                    if (aDifficultChoice(2) == "Talk to her husband about it") {
+                        let p7 = "<p>Lily tried talking to Karen but she kept crying and locked herself inside her bedroom. Lily then decided to speak to Harold about it. Harold reassured her that it was normal for children her age to have an imaginary friend. Lily wasn't convinced in the least bit.</p>";
+                        updateProgression(6, p7);
+                        let strategies = [
+                            "Try talking to her.",
+                            "Make her favourite sweets.",
+                            "Let her watch TV all night.",
+                            "Don't tell her to study.",
+                            "Read her a bedtime story.",
+                            "Let her bunk school anytime."
+                        ];
+                        if (consoleKaren(strategies) == 154) {
+                            let p8 = "<p>Karen told Lily that her friend had come to her bedroom to meet her since she wouldn't let her out. Lily was shocked and asked her, \"What did she say?\" Karen said, \"She wants to kill you ma. I\'m very scared.\" Lily\'s face turned pale as she held Karen tightly.</p>";
+                            filler.innerHTML = "Yay! You've completed your first Javascript Lab!" +
+                                "<br>Click <a id=\"link\" href=\"\">here</a> to read the remaining story!";
+                            story.removeChild(filler);
+                            story.innerHTML += p8;
+                            story.appendChild(filler);
+                        }
+                    }
+                }
+            }
+        }
     }
-    //activate the class filtertype-active for position button
-    evt.target.parentElement.previousSibling.classList.add("filtertype-active");
-    document.getElementById("positionflag").textContent =
-      evt.target.textContent;
-  } catch (e) {
-    //do nothing as the function is not defined
-  }
 }
-
-//all debut years (sorted)
-const debutYears = [...new Set(players.map(e => e.debut))].sort();
-debutYears.forEach(e => {
-  document.querySelector("#dropdown-debut").innerHTML +=
-    '<p class="year">' + e + "</p>";
+document.getElementById("link").addEventListener("click", function (e) {
+    e.preventDefault();
+    let theEnd = "<p>Lily rushed to Harold and told him what happened. Harold tried to console her and told her everything would be alright. Lily pleaded Harold, \"Won't you please take our daughter to a doctor? She said the word \'kill\'. Something is definitely wrong with her.\"</p><p>Harold ignored her statement and asked her to calm down. This only made Lily more angry. She started shouting at Harold, \"You won't let us move to the town close by! You won't take our daughter to the hospital. You don't love us! You never did!\"</p><p>Harold snapped when he heard that. He broke down, \"The problem isn't with our daughter. It's with you! Karen died 6 months ago. You and Karen were on a boat ride when she drowned in the river. THERE IS NO KAREN. THERE IS NO FRIEND. It's all in your head.\"</p><p>Lily listened to everything Harold had to say and couldn't believe what she was hearing. She started laughing hysterically and had lost herself. She fell unconcious Harold stood there crying to himself.</p><p>--THE END--</p>";
+    story.innerHTML += theEnd;
+    window.scrollBy(0, 1000);
 });
-
-//debut year click listener and handler
-
-let debutYearEls = document.getElementsByClassName("year");
-
-[...debutYearEls].forEach(element => {
-  element.onclick = debutHandler;
-});
-
-function debutHandler(evt) {
-  try {
-    createCards(filterByDebut(evt.target.textContent));
-    try {
-      //deactivate the class filtertype-active for any selected buttons
-      resetselection();
-    } catch (e) {
-      //do nothing
-    }
-    //activate the class filtertype-active for position button
-    evt.target.parentElement.previousSibling.classList.add("filtertype-active");
-    document.getElementById("debutflag").textContent = evt.target.textContent;
-  } catch (e) {
-    //do nothing - expected error
-  }
-}
-
-//all awards won (sorted)
-const awards = [...new Set(players.map(e => e.awards))];
-// //max no of awards won by any player
-var maxAwardCount = 0;
-const awardNames = [];
-players.forEach(e => {
-  maxAwardCount =
-    maxAwardCount < e.awards.length ? e.awards.length : maxAwardCount;
-  e.awards.forEach(f =>
-    awardNames.indexOf(f.name) == -1 ? awardNames.push(f.name) : ""
-  );
-});
-awardNames.sort();
-awardNames.forEach(
-  e =>
-    (document.querySelector("#dropdown-award").innerHTML +=
-      '<p class="award">' + e + "</p>")
-);
-
-//award click listener
-
-let awardEls = document.getElementsByClassName("award");
-
-[...awardEls].forEach(element => {
-  element.onclick = awardHandler;
-});
-
-//advanced filters based on award
-
-function createAdvancedFilters(award) {
-  document.querySelectorAll(".award-selected").forEach(e => {
-    e.style.display = "block";
-  });
-}
-
-// award click handler
-function awardHandler(evt) {
-  try {
-    createCards(filterByAward(evt.target.textContent));
-    try {
-      //deactivate the class filtertype-active for any selected buttons
-      resetselection();
-    } catch (e) {
-      //do nothing
-    }
-    //activate the class filtertype-active for position button
-    evt.target.parentElement.previousElementSibling.classList.add(
-      "filtertype-active"
-    );
-    createAdvancedFilters(evt.target.textContent);
-    document.getElementById("awardflag").textContent = evt.target.textContent;
-  } catch (e) {
-    //do nothing - expected error
-  }
-}
-
-//number of awards listener and handler
-
-document.getElementById("awardCount").oninput = awardCountHandler;
-
-function awardCountHandler(evt) {
-  try {
-    let award = document.getElementById("awardflag").textContent;
-    let timesInput = evt.target;
-    let times = timesInput.value;
-    createCards(filterByAwardxTimes(award, times));
-  } catch (e) {
-    //do nothing
-  }
-}
-
-//all player countries
-const countries = [...new Set(players.map(e => e.country))].sort();
-countries.forEach(
-  e =>
-    (document.querySelector("#dropdown-country").innerHTML +=
-      "<p>" + e + "</p>")
-);
-
-// country listener and handler
-
-document.getElementById("dropdown-country").onclick = countryHandler;
-function countryHandler(evt) {
-  try {
-    let award = document.getElementById("awardflag").textContent;
-    let country = evt.target.textContent;
-    createCards(filterByAwardxCountry(award, country));
-  } catch (e) {
-    //do nothing
-  }
-}
-
-//all player teams
-const teams = [...new Set(players.map(e => e.team))].sort();
-teams.forEach(
-  e =>
-    (document.querySelector("#dropdown-team").innerHTML += "<p>" + e + "</p>")
-);
-
-//teams listener and handler
-document.getElementById("dropdown-team").onclick = teamHandler;
-
-function teamHandler(evt) {
-  createCards([]);
-  try {
-    resetselection();
-    // createCards(filterByNoOfAwardsxTeamxAge(noOfAwards, team, age));
-  } catch (e) {
-    //do nothing
-  }
-  document.querySelectorAll(".team-selected").forEach(e => {
-    e.style.display = "block";
-  });
-  evt.target.parentElement.previousElementSibling.classList.add(
-    "filtertype-active"
-  );
-  document.getElementById("teamflag").textContent = evt.target.textContent;
-
-  document.getElementById("goButton").onclick = goButtonHandler;
-
-  function goButtonHandler() {
-    try {
-      awardsTotal = document.getElementById("awardCountTotal");
-      noOfAwards = awardsTotal.value;
-      ageBox = document.getElementById("age");
-      age = ageBox.value;
-      team = document.getElementById("teamflag").textContent;
-      createCards(filterByNoOfAwardsxTeamxAge(noOfAwards, team, age));
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
-
-let sortButtons = document.getElementById("sort-type").children;
-sortButtons.onclick = sortButtonHandler;
-
-function sortButtonHandler(evt) {
-  switch (evt.target.textContent) {
-    case "Oldest to Newest":
-      createCards(sortByAge());
-      break;
-    case "More Awards":
-
-    case "Alphabetical Sort":
-    case "Alphabetical x Award Sort":
-  }
-}
-
-//max and min age among players (for age slider)
-// var minAge = 100;
-// var maxAge = 0;
-// players.forEach(e => {
-//   minAge = minAge > e.age ? e.age : minAge;
-//   maxAge = maxAge < e.age ? e.age : maxAge;
-// });
